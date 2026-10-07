@@ -65,14 +65,16 @@ dialog form label{margin-top:10px}dialog form .row{margin-top:14px}
 @media(max-width:600px){.card:first-child:not(.focused) .card-top h3{padding-left:78px}}
 @media(hover:none){#header{opacity:.8}}
 
-</style>
+#localToast{position:fixed;z-index:50;bottom:12px;left:50%;transform:translateX(-50%);width:max-content;max-width:calc(100vw - 24px);padding:12px 16px;border-radius:10px;background:#25352e;color:#fff;font-size:13px;pointer-events:none}#wake[data-waiting=true]{color:#f2cf83}#youtubeAccount p{line-height:1.5;font-size:14px}#youtubeAccount .row{margin-top:16px}#youtubeAccount a{padding:8px} .catalog-collapsed .card:first-child:not(.focused) .card-top h3{padding-left:152px}@media(max-width:600px){.card:first-child:not(.focused) .card-top h3{padding-left:152px}}</style>
 </head>
 <body>
-<header id="header"><div class="brand"><button id="toggleCatalog" aria-controls="sidebar" aria-expanded="true"></button><div><h1><span>▦</span> Mosaico</h1><p class="subtitle">Tu catálogo. Tu propia pantalla.</p></div></div><button class="primary" id="add">＋ Agregar video</button></header>
+<header id="header"><div class="brand"><button id="toggleCatalog" aria-controls="sidebar" aria-expanded="true"></button><div><h1><span>▦</span> Mosaico</h1><p class="subtitle">Tu catálogo. Tu propia pantalla.</p></div></div><button class="primary" id="add">＋ Agregar video</button><button id="wake" type="button" aria-pressed="false"></button><button id="youtubeLogin" type="button"></button></header>
 <div class="layout"><aside id="sidebar"><h2>Catálogo</h2><p class="small">Activá los videos que quieras ver. Los demás quedan guardados.</p><div class="row bulk"><button id="all">Activar todos</button><button id="none">Desactivar todos</button></div><div id="catalog"></div><div id="messages"></div><footer class="small">Guardado en este navegador.<br>Un solo audio a la vez. Todos comienzan silenciados.</footer></aside>
 <main><div id="notice" class="notice" role="status"></div><div id="storageNotice" class="notice" role="status"></div><div id="apiNotice" class="notice" role="status"></div><p id="count"></p><div id="empty" class="empty"><strong>Un espacio para tus videos</strong>Agregá una URL o un ID de YouTube y activalo para verlo acá.</div><div id="grid" class="grid"></div></main></div>
 <div id="backdrop" hidden></div>
 <dialog id="editor" aria-labelledby="editTitle"><form id="form"><h2 id="editTitle">Agregar video</h2><label for="source">URL de YouTube o ID</label><input id="source" type="text" required placeholder="https://www.youtube.com/watch?v=…" autocomplete="off"><label for="name">Nombre (opcional)</label><input id="name" type="text" maxlength="120" placeholder="Por ejemplo: Música para trabajar"><label class="check"><input id="active" type="checkbox" checked> Mostrar en la grilla</label><p id="formError" class="form-error" role="alert"></p><div class="row"><button type="button" id="cancel">Cancelar</button><button class="primary" type="submit">Guardar</button></div></form></dialog>
+<div id="localToast" role="status" hidden></div>
+<dialog id="youtubeAccount" aria-labelledby="youtubeAccountTitle"><h2 id="youtubeAccountTitle">Tu cuenta de YouTube</h2><p>Iniciá sesión en YouTube con la cuenta que tenga tu suscripción Premium. El acceso se realiza en la página oficial de Google.</p><p>Mosaico no recibe tu contraseña ni puede comprobar tu suscripción. Iniciar sesión no garantiza que Premium se aplique a los reproductores insertados ni que sigan sonando con el celular bloqueado.</p><p>Para escuchar con la pantalla apagada, abrí el video directamente en YouTube con tu cuenta Premium.</p><div class="row"><a id="officialLogin" href="https://accounts.google.com/ServiceLogin?service=youtube&amp;continue=https%3A%2F%2Fwww.youtube.com%2F" target="_blank" rel="noopener noreferrer">Iniciar sesión en YouTube ↗</a><a id="premiumVideo" target="_blank" rel="noopener noreferrer">Abrir video en YouTube ↗</a><a href="https://www.youtube.com/premium" target="_blank" rel="noopener noreferrer">Ver YouTube Premium ↗</a></div><div class="row"><button id="closeAccount" type="button">Cerrar</button></div></dialog>
 <script>
 'use strict';
 const $=id=>document.getElementById(id), KEY='mosaico.youtube.catalog.v1';
@@ -84,6 +86,8 @@ function el(tag,text,cls){const n=document.createElement(tag);if(text!==undefine
 function button(text,action){const b=el('button',text);b.type='button';b.onclick=action;return b}
 
 const icons={
+ sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5 19 19M5 19l1.5-1.5M17.5 6.5 19 5"/>',
+ user:'<circle cx="12" cy="8" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/>',
  menu:'<path d="M3 5h18v14H3zM9 5v14"/>',plus:'<path d="M12 5v14M5 12h14"/>',
  play:'<path d="m8 4 12 8-12 8z"/>',pause:'<path d="M8 5v14M16 5v14"/>',stop:'<path d="M6 6h12v12H6z"/>',
  sound:'<path d="m11 4-6 5H2v6h3l6 5zM15 8a6 6 0 0 1 0 8M18 5a10 10 0 0 1 0 14"/>',
@@ -99,6 +103,40 @@ $('toggleCatalog').onclick=()=>setCatalogCollapsed(!$('sidebar').hidden);
 let collapsed=true;try{collapsed=localStorage.getItem(KEY+'.collapsed')!=='false'}catch{}setCatalogCollapsed(collapsed);
 setIcon($('add'),'plus','Agregar video');setIcon($('all'),'all','Activar todos');setIcon($('none'),'none','Desactivar todos');
 
+
+
+// Wake Lock is opt-in for this session. Never imply that it overrides a manual lock.
+let wakeWanted=false,wakeSentinel=null,wakePending=false,toastTimer;
+const wakeSupported=window.isSecureContext&&'wakeLock' in navigator;
+function toast(message){clearTimeout(toastTimer);$('localToast').textContent=message;$('localToast').hidden=false;toastTimer=setTimeout(()=>$('localToast').hidden=true,7000)}
+function paintWake(){const held=!!wakeSentinel&&!wakeSentinel.released;setIcon($('wake'),'sun',held?'Permitir que la pantalla se apague':wakeWanted?'Pantalla encendida en espera · desactivar':'Mantener pantalla encendida');$('wake').setAttribute('aria-pressed',String(held));$('wake').dataset.waiting=String(wakeWanted&&!held);$('wake').disabled=wakePending}
+async function acquireWake(){
+ if(!wakeWanted||wakePending||wakeSentinel||document.visibilityState!=='visible')return;
+ wakePending=true;paintWake();
+ try{const sentinel=await navigator.wakeLock.request('screen');
+  if(!wakeWanted||document.visibilityState!=='visible'){await sentinel.release();return}
+  wakeSentinel=sentinel;sentinel.addEventListener('release',()=>{if(wakeSentinel===sentinel){wakeSentinel=null;paintWake();if(wakeWanted&&document.visibilityState==='visible')toast('El sistema liberó la pantalla. Desactivá y activá el botón para reintentar.')}});
+ }catch{wakeWanted=false;toast('No se pudo mantener la pantalla encendida. Revisá el ahorro de batería y usá HTTPS o localhost en un navegador compatible.')}
+ finally{wakePending=false;paintWake()}
+}
+$('wake').onclick=async()=>{
+ if(!wakeSupported){toast('Este navegador no permite mantener la pantalla encendida aquí. Probá con HTTPS o localhost y un navegador compatible.');return}
+ wakeWanted=!wakeWanted;
+ if(wakeWanted){await acquireWake();if(wakeSentinel)toast('Pantalla encendida mientras Mosaico esté visible. El bloqueo manual sigue funcionando.')}
+ else{const sentinel=wakeSentinel;wakeSentinel=null;try{await sentinel?.release()}catch{}paintWake();toast('Apagado automático de pantalla permitido.')}
+};
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&wakeWanted)acquireWake()});
+window.addEventListener('pagehide',()=>{const sentinel=wakeSentinel;wakeSentinel=null;sentinel?.release().catch(()=>{})});
+window.addEventListener('pageshow',()=>{if(wakeWanted)acquireWake()});
+paintWake();setIcon($('youtubeLogin'),'user','Cuenta de YouTube / Premium');
+$('youtubeLogin').onclick=()=>{
+ const id=audioOwner||videos.find(v=>v.active)?.id;
+ const link=$('premiumVideo');link.hidden=!id;
+ if(id){const r=players.get(id);let seconds=0;try{seconds=Math.floor(r?.player?.getCurrentTime()||0)}catch{}link.href='https://www.youtube.com/watch?v='+id+(seconds>0?'&t='+seconds+'s':'')}
+ $('youtubeAccount').showModal();
+};
+$('premiumVideo').onclick=()=>{for(const r of players.values())if(r.ready)r.player.mute();audioOwner=null;updateAudio()};
+$('closeAccount').onclick=()=>$('youtubeAccount').close();
 
 // Enumerate balanced row arrangements and maximize the visible 16:9 image
 // area. Every row fills the width, including incomplete final rows.
