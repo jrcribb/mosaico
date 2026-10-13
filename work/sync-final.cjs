@@ -1,0 +1,1 @@
+const fs=require('fs');let s=fs.readFileSync('mosaico.html','utf8');s=s.replace('.card:first-child:not(.focused) .card-top h3{padding-left:225px}', '.card:first-child:not(.focused) .card-top h3{padding-left:270px}');for(const f of ['out/index.html','public/index.html'])fs.writeFileSync(f,s);console.log('Synchronized mobile icon spacing and publish copies.');

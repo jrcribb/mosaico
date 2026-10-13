@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="es">
+<head>
+
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Mosaico</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiBmaWxsPSIjRkZFNTk5IiAvPgogIDxyZWN0IHg9IjE2IiB5PSIwIiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIGZpbGw9IiNGNEIxODMiIC8+CiAgPHJlY3QgeD0iMCIgeT0iMTYiIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgZmlsbD0iI0M2RTBCNCIgLz4KICA8cmVjdCB4PSIxNiIgeT0iMTYiIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgZmlsbD0iI0I0QzZFNyIgLz4KICA8bGluZSB4MT0iMTYiIHkxPSIwIiB4Mj0iMTYiIHkyPSIzMiIgc3Ryb2tlPSIjNDA0MDQwIiBzdHJva2Utd2lkdGg9IjIiIC8+CiAgPGxpbmUgeDE9IjAiIHkxPSIxNiIgeDI9IjMyIiB5Mj0iMTYiIHN0cm9rZT0iIzQwNDA0MCIgc3Ryb2tlLXdpZHRoPSIyIiAvPgo8L3N2Zz4=">
+
+
+
+<style>
+:root{color-scheme:dark;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#101214;color:#e9ecef;--line:#30353b;--muted:#a5adb7;--accent:#a9dfc4}*{box-sizing:border-box}body{margin:0}button,input{font:inherit}button,a,input{touch-action:manipulation}button{cursor:pointer;border:1px solid var(--line);background:#24292f;color:inherit;border-radius:8px;padding:9px 12px}button:hover{background:#343d45}button:disabled{opacity:.45;cursor:wait}button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:3px}button[aria-pressed=true],.primary{background:var(--accent);color:#14241c;border-color:var(--accent)}a{color:var(--accent)}header{padding:25px 28px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:20px}h1{font-size:24px;letter-spacing:-1px;margin:0}h1 span{color:var(--accent)}.subtitle{color:var(--muted);font-size:13px;margin:6px 0 0}.layout{display:grid;grid-template-columns:310px minmax(0,1fr);min-height:calc(100vh - 96px)}aside{padding:24px 18px;border-right:1px solid var(--line);background:#171a1e}h2{font-size:15px;margin:0 0 16px}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.row>*{min-width:0}.small{font-size:12px;color:var(--muted)}.bulk{margin:18px 0}.bulk button{font-size:12px;padding:8px}.catalog-item{padding:15px 0;border-top:1px solid var(--line)}.catalog-item label{display:flex;align-items:center;gap:10px;font-weight:600;overflow-wrap:anywhere}.catalog-item input{accent-color:var(--accent);width:18px;height:18px;flex-shrink:0}.catalog-item .row{margin:10px 0 0 28px}.catalog-item button{font-size:12px;padding:5px 9px}.catalog-item .small{margin:5px 0 0 28px}main{padding:25px;min-width:0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:18px}.card{background:#191d22;border:1px solid var(--line);border-radius:12px;overflow:hidden;min-width:0}.card h3{font-size:14px;margin:0;overflow-wrap:anywhere}.card-top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px}.screen{aspect-ratio:16/9;min-height:200px;background:#08090a}.screen iframe{width:100%;height:100%;display:block;border:0}.controls{padding:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}.controls button{font-size:12px}.seek{width:100%;accent-color:var(--accent)}.status{font-size:12px;color:var(--muted);padding:0 13px 12px;min-height:28px}.empty{border:1px dashed var(--line);border-radius:14px;padding:60px 24px;text-align:center;color:var(--muted)}.empty strong{display:block;color:#e9ecef;font-size:22px;font-weight:500;margin-bottom:12px}.notice{font-size:13px;line-height:1.6;border:1px solid #665735;background:#2c281e;color:#e8d6aa;border-radius:9px;padding:12px 16px;margin:0 0 18px}.notice:empty{display:none}#backdrop{position:fixed;inset:0;background:#000c;z-index:20;backdrop-filter:blur(5px)}[hidden]{display:none!important}.card.focused{position:fixed;z-index:21;top:50%;left:50%;transform:translate(-50%,-50%);width:min(1100px,94vw);max-height:94dvh;overflow:auto;box-shadow:0 24px 100px #000}.focused .screen{height:min(62dvh,619px);aspect-ratio:auto}.close-focus{display:none}.focused .close-focus{display:inline-block}.focused .focus-button{display:none}dialog{width:min(460px,94vw);border:1px solid var(--line);border-radius:16px;padding:25px;background:#1b2025;color:inherit}dialog::backdrop{background:#000a}form label{display:block;margin:18px 0 7px;font-size:14px}form input[type=text],form input[type=url]{width:100%;padding:12px;border:1px solid #48505a;background:#101418;border-radius:8px;color:inherit}form .check{display:flex;gap:10px;align-items:center}form .row{justify-content:flex-end;margin-top:24px}.form-error{color:#ffb7b7;font-size:13px}footer{margin-top:22px;line-height:1.7}#count{color:var(--muted);font-size:13px;margin-bottom:18px}@media(max-width:760px){header{padding:20px}.layout{display:block}aside{border-right:0;border-bottom:1px solid var(--line);padding:18px}#catalog{max-height:300px;overflow:auto}main{padding:18px}.grid{grid-template-columns:1fr}.subtitle{max-width:210px}.focused .screen{height:min(55dvh,480px)}}
+
+/* The video occupies the entire tile; controls never reserve grid space. */
+header{padding:12px 18px}.brand{display:flex;align-items:center;gap:14px}.subtitle{display:none}
+.layout.catalog-collapsed{grid-template-columns:minmax(0,1fr)}
+main{padding:12px}.grid{gap:8px}.card{position:relative;border:0;border-radius:0;background:#000}
+.card-top,.controls,.status{position:absolute;z-index:2;left:0;right:0;opacity:0;pointer-events:none;transition:opacity .16s}
+.card-top{top:0;padding:10px 12px;background:linear-gradient(#000c,transparent)}
+.card-top h3{flex:1;text-shadow:0 1px 3px #000}
+.controls{bottom:0;padding:10px 12px;background:linear-gradient(transparent,#000d)}
+.status{bottom:86px;padding:4px 12px;min-height:0;color:#fff;text-shadow:0 1px 3px #000}
+.card:hover .card-top,.card:hover .controls,.card:hover .status,
+.card:has(:focus-visible) .card-top,.card:has(:focus-visible) .controls,.card:has(:focus-visible) .status,
+.card.touch-controls .card-top,.card.touch-controls .controls,.card.touch-controls .status{opacity:1;pointer-events:auto}
+.icon-button{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;padding:8px;flex-shrink:0}
+.icon-button svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+.card .icon-button{background:#161b21cb;border:0;color:#fff;backdrop-filter:blur(6px)}
+.card .icon-button[aria-pressed=true]{background:#a9dfc4;color:#14241c}
+.controls .seek{flex-basis:100%;height:14px;margin:0}.controls a{margin-left:auto}
+.card .close-focus{display:none}.card.focused .close-focus{display:inline-flex}.card.focused .focus-button{display:none}
+.touch-reveal{display:none;position:absolute;inset:0;z-index:1;border:0;border-radius:0;background:transparent!important;width:100%;height:100%}
+@media(hover:none){.touch-reveal{display:block}.card:not(.touch-controls):not(:has(:focus-visible)) .card-top,.card:not(.touch-controls):not(:has(:focus-visible)) .controls,.card:not(.touch-controls):not(:has(:focus-visible)) .status{opacity:0;pointer-events:none}}
+@media(prefers-reduced-motion:reduce){.card-top,.controls,.status{transition:none}}
+
+/* Viewport-sized wall: no document scrolling and no space reserved for chrome. */
+html,body{width:100%;height:100%;overflow:hidden;overscroll-behavior:none}
+*{scrollbar-width:none}*::-webkit-scrollbar{display:none;width:0;height:0}
+body{height:100dvh;background:#000}
+#header{position:fixed;z-index:10;top:4px;left:4px;padding:3px;gap:3px;border:0;border-radius:8px;background:#171a1ed9;opacity:0;pointer-events:auto;transition:opacity .15s}
+#header:hover,#header:focus-within{opacity:1;pointer-events:auto}
+#header .brand{gap:0}#header .brand>div{display:none}#header .icon-button{width:34px;height:34px;border:0}
+.layout,.layout.catalog-collapsed{display:grid;grid-template-columns:280px minmax(0,1fr);height:100%;min-height:0;width:100%;overflow:hidden}
+.layout.catalog-collapsed{grid-template-columns:minmax(0,1fr)}
+#sidebar{display:flex;flex-direction:column;gap:8px;min-width:0;min-height:0;padding:50px 12px 10px;border:0;overflow:hidden}
+#sidebar h2,#sidebar>p,#sidebar footer{display:none}
+#sidebar .bulk{flex-shrink:0;margin:0;gap:6px}
+#catalog{flex:1;min-height:0;max-height:none;overflow:auto;overscroll-behavior:contain}
+.catalog-item{padding:9px 0}.catalog-item .row{margin-top:5px}.catalog-item label{font-size:13px}
+#count{flex-shrink:0;margin:0;font-size:11px}
+#messages{flex-shrink:1;min-height:0;max-height:30%;overflow:auto}
+#messages .notice{font-size:11px;line-height:1.4;padding:8px;margin:0 0 5px}
+main{position:relative;width:100%;height:100%;min-width:0;min-height:0;padding:0;overflow:hidden}
+.grid{position:absolute;inset:0;display:block;gap:0;overflow:hidden}
+.card{position:absolute;left:var(--tile-x,0px);top:var(--tile-y,0px);width:var(--tile-w,100%);height:var(--tile-h,100%);min-width:0;min-height:0;overflow:hidden;container-type:size}
+.screen,.focused .screen{position:absolute;inset:0;width:100%;height:100%;min-height:0;aspect-ratio:auto;overflow:hidden}
+.screen>div{height:100%;width:100%}
+.screen iframe{min-width:0;min-height:0}
+.card.focused{position:fixed;inset:0;left:0;top:0;width:100vw;height:100dvh;max-width:none;max-height:none;transform:none;overflow:hidden;border-radius:0;box-shadow:none}
+.card-top{padding:5px;gap:4px}.card-top h3{white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+.controls{padding:5px;gap:4px}.status{bottom:65px;max-height:calc(100% - 110px);overflow:auto;font-size:11px}
+.card .icon-button{width:32px;height:32px;padding:6px}.controls .seek{height:12px}
+.empty{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0;padding:16px;border:0;border-radius:0}
+dialog{max-width:calc(100vw - 12px);max-height:calc(100dvh - 12px);overflow:auto;padding:16px}
+dialog form label{margin-top:10px}dialog form .row{margin-top:14px}
+@container(max-width:230px){.card-top h3,.controls a{display:none}.card .icon-button{width:28px;height:28px;padding:4px}.card-top{justify-content:flex-end}.controls{gap:2px}.status{font-size:10px}}
+@container(max-height:140px){.status,.controls .seek{display:none}.card-top{background:none}.controls{flex-wrap:nowrap}}
+@media(max-width:600px){.layout,.layout.catalog-collapsed{grid-template-columns:minmax(0,1fr)}#sidebar{position:absolute;z-index:8;inset:0 auto 0 0;width:min(280px,90vw);box-shadow:8px 0 25px #0008}}
+.catalog-collapsed .card:first-child:not(.focused) .card-top h3{padding-left:78px}
+@media(max-width:600px){.card:first-child:not(.focused) .card-top h3{padding-left:78px}}
+@media(hover:none){#header{opacity:.78;pointer-events:auto}}
+
+#localToast{position:fixed;z-index:50;bottom:12px;left:50%;transform:translateX(-50%);width:max-content;max-width:calc(100vw - 24px);padding:12px 16px;border-radius:10px;background:#25352e;color:#fff;font-size:13px;pointer-events:none}#wake[data-waiting=true]{color:#f2cf83}#youtubeAccount p{line-height:1.5;font-size:14px}#youtubeAccount .row{margin-top:16px}#youtubeAccount a{padding:8px} .catalog-collapsed .card:first-child:not(.focused) .card-top h3{padding-left:152px}@media(max-width:600px){.card:first-child:not(.focused) .card-top h3{padding-left:152px}}select{width:100%;padding:10px;color:inherit;background:#101418;border:1px solid #48505a;border-radius:8px;font:inherit}.source-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:52px 16px 72px;background:#142026;text-align:center}.source-placeholder strong{font-size:clamp(16px,3vw,30px);overflow-wrap:anywhere}.source-placeholder p{font-size:12px;max-width:360px;margin:0;color:#b1bec6}.screen video{width:100%;height:100%;object-fit:contain}.card.web-source .touch-reveal{display:none}.source-error .status{opacity:1;pointer-events:auto;background:#392525e8}.catalog-item .radio-play[aria-pressed=true]{background:var(--accent);color:#14241c}#sourceHelp{line-height:1.5}.catalog-item .kind-tag{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--accent)}
+#catalogFilter{display:grid;gap:6px;flex-shrink:0}#channelSearch{width:100%;min-width:0;background:#101418;color:inherit;border:1px solid #48505a;border-radius:6px;padding:8px}#catalogPager{justify-content:space-between;flex-shrink:0}#catalogPager button{padding:3px 12px}#configDialog{width:min(760px,96vw)}#configText{width:100%;height:min(55dvh,440px);resize:vertical;background:#101418;color:inherit;border:1px solid #48505a;border-radius:8px;padding:10px;font:12px/1.5 ui-monospace,monospace;white-space:pre;overflow:auto}#configDialog .row{margin-top:12px}#iptvDialog{width:min(560px,96vw)}#iptvDialog label{display:block;margin:14px 0 7px;font-size:13px}#iptvUrls{width:100%;resize:vertical;max-height:25dvh;background:#101418;border:1px solid #48505a;color:inherit;padding:10px;border-radius:8px;font:inherit}#iptvFiles{width:100%;font-size:12px}#iptvDialog .row{margin-top:12px}#iptvDialog .small{line-height:1.5}#iptvResult{white-space:pre-wrap;font-size:13px;overflow-wrap:anywhere}#iptvLists>div{border-top:1px solid var(--line);padding:10px 0;display:flex;align-items:center;justify-content:space-between;gap:10px}#iptvLists>div{flex-wrap:wrap}#iptvLists>div>div{flex:1 1 100%;min-width:0}#iptvLists label{display:inline-block;margin:0 12px 0 0}#iptvLists span{overflow-wrap:anywhere;font-size:13px}.catalog-collapsed .card:first-child:not(.focused) .card-top h3{padding-left:270px}@media(max-width:600px){.card:first-child:not(.focused) .card-top h3{padding-left:225px}} .detached-view #header{display:flex}.detached-view .layout{min-height:100dvh}.detached-view main{padding:4px}.detached-view .grid{gap:4px}</style>
+</head>
+<body>
+<header id="header"><div class="brand"><button id="toggleCatalog" aria-controls="sidebar" aria-expanded="true"></button><div><h1><span>▦</span> Mosaico</h1><p class="subtitle">Tu catálogo. Tu propia pantalla.</p></div></div><button class="primary" id="add">＋ Agregar video</button><button id="wake" type="button" aria-pressed="false"></button><button id="youtubeLogin" type="button"></button><button id="iptvButton" type="button"></button><button id="detachWindow" type="button"></button><button id="configButton" type="button"></button></header>
+<div class="layout"><aside id="sidebar"><h2>Catálogo</h2><p class="small">Activá los videos que quieras ver. Los demás quedan guardados.</p><div class="row bulk"><button id="all">Activar todos</button><button id="none">Desactivar todos</button></div><div id="catalogFilter"><input id="channelSearch" type="search" placeholder="Buscar fuente o grupo" aria-label="Buscar fuente o grupo"><select id="listFilter" aria-label="Filtrar por lista"><option value="">Todas las fuentes</option></select></div><div id="catalog"></div><div id="catalogPager" class="row"><button id="previousPage" type="button" aria-label="Página anterior">‹</button><span id="pageLabel" class="small"></span><button id="nextPage" type="button" aria-label="Página siguiente">›</button></div><div id="messages"></div><footer class="small">Guardado en este navegador.<br>Un solo audio a la vez. Todos comienzan silenciados.</footer></aside>
+<main><div id="notice" class="notice" role="status"></div><div id="storageNotice" class="notice" role="status"></div><div id="apiNotice" class="notice" role="status"></div><p id="count"></p><div id="empty" class="empty"><strong>Un espacio para tus fuentes</strong>Agregá YouTube, una radio, un video directo o una página web.</div><div id="grid" class="grid"></div></main></div>
+<div id="backdrop" hidden></div>
+<dialog id="editor" aria-labelledby="editTitle"><form id="form"><h2 id="editTitle">Agregar video</h2><label for="kind">Tipo de fuente</label><select id="kind"><option value="youtube">YouTube</option><option value="radio">Radio online</option><option value="web">Página web embebida</option><option value="video">Video / stream directo</option></select><div id="radioPresets" hidden><label for="preset">Emisora de referencia (URL editable)</label><select id="preset"><option value="">Personalizada</option></select></div><label id="sourceLabel" for="source">URL de YouTube o ID</label><input id="source" type="text" required placeholder="https://www.youtube.com/watch?v=…" autocomplete="off"><p id="sourceHelp" class="small"></p><label for="name">Nombre (opcional)</label><input id="name" type="text" maxlength="120" placeholder="Por ejemplo: Música para trabajar"><label class="check"><input id="active" type="checkbox" checked> Mostrar en la grilla</label><p id="formError" class="form-error" role="alert"></p><div class="row"><button type="button" id="cancel">Cancelar</button><button class="primary" type="submit">Guardar</button></div></form></dialog>
+<div id="localToast" role="status" hidden></div>
+<dialog id="youtubeAccount" aria-labelledby="youtubeAccountTitle"><h2 id="youtubeAccountTitle">Tu cuenta de YouTube</h2><p>Iniciá sesión en YouTube con la cuenta que tenga tu suscripción Premium. El acceso se realiza en la página oficial de Google.</p><p>Mosaico no recibe tu contraseña ni puede comprobar tu suscripción. Iniciar sesión no garantiza que Premium se aplique a los reproductores insertados ni que sigan sonando con el celular bloqueado.</p><p>Para escuchar con la pantalla apagada, abrí el video directamente en YouTube con tu cuenta Premium.</p><div class="row"><a id="officialLogin" href="https://accounts.google.com/ServiceLogin?service=youtube&amp;continue=https%3A%2F%2Fwww.youtube.com%2F" target="_blank" rel="noopener noreferrer">Iniciar sesión en YouTube ↗</a><a id="premiumVideo" target="_blank" rel="noopener noreferrer">Abrir video en YouTube ↗</a><a href="https://www.youtube.com/premium" target="_blank" rel="noopener noreferrer">Ver YouTube Premium ↗</a></div><div class="row"><button id="closeAccount" type="button">Cerrar</button></div></dialog>
+<dialog id="configDialog" aria-labelledby="configTitle"><h2 id="configTitle">Configuración del catálogo</h2><p class="small">Una fuente por línea, separada por tabuladores. Columnas: ALIAS, URL, TIPO, ACTIVO/INACTIVO. Podés copiar, pegar y editar el texto.</p><textarea id="configText" spellcheck="false" aria-label="Lista de fuentes"></textarea><p id="configStatus" class="small" role="status"></p><div class="row"><button id="exportConfig" type="button">Exportar</button><button id="importConfig" class="primary" type="button">Importar y reemplazar catálogo</button><button id="closeConfig" type="button">Cerrar</button></div></dialog><dialog id="iptvDialog" aria-labelledby="iptvTitle"><h2 id="iptvTitle">Listas IPTV</h2><p class="small">Importá una o varias listas M3U/M3U8. Los canales quedan guardados y apagados; activá sólo los que quieras ver.</p><div class="row"><button id="subscribeIptvOrg" class="primary" type="button">Incorporar IPTV-org</button></div><p class="small">Catálogo mundial oficial. Actualización automática cada 6 horas mientras Mosaico está abierto y al volver a abrirlo si está pendiente. Los canales nuevos quedan apagados. Podés pausar la actualización de cada lista. Si falla la conexión, se conserva la última copia.</p><label for="iptvUrls">URLs de listas, una por línea</label><textarea id="iptvUrls" rows="3" placeholder="https://…/canales.m3u" spellcheck="false"></textarea><label for="iptvFiles">O archivos de listas</label><input id="iptvFiles" type="file" accept=".m3u,.m3u8,audio/x-mpegurl,application/vnd.apple.mpegurl" multiple><p class="small">Si el servidor no permite leer la lista desde esta página, descargala e importá el archivo. En archivos locales, las direcciones de canales deben ser completas. HLS requiere soporte nativo del navegador; no se admiten DRM ni cabeceras especiales.</p><div class="row"><button id="importIptv" class="primary" type="button">Importar</button><button id="closeIptv" type="button">Cerrar</button></div><p id="iptvResult" role="status" aria-live="polite"></p><div id="iptvLists"></div></dialog>
+<script>
+'use strict';
+const $=id=>document.getElementById(id),KEY='mosaico.sources.v2',LEGACY_KEY='mosaico.youtube.catalog.v1';
+const players=new Map();let catalogLoaded=true,videos=[],apiReady=false,audioOwner=null,focused=null,returnFocus=null,editing=null,serial=0,audioEpoch=0,apiRequested=false;
+let iptvLists=[],catalogPage=0;const PAGE_SIZE=60;
+const TYPES={youtube:'YouTube',radio:'Radio',web:'Página web',video:'Video directo'};
+function parseId(value){value=value.trim();if(/^[\w-]{11}$/.test(value))return value;let u;try{u=new URL(/^https?:\/\//i.test(value)?value:'https://'+value)}catch{return null}if(!['https:','http:'].includes(u.protocol))return null;const host=u.hostname.toLowerCase().replace(/^www\./,'');let id;if(host==='youtu.be')id=u.pathname.split('/')[1];else if(['youtube.com','m.youtube.com','music.youtube.com','youtube-nocookie.com'].includes(host)){const parts=u.pathname.split('/').filter(Boolean);id=parts[0]==='watch'?u.searchParams.get('v'):['embed','shorts','live','v'].includes(parts[0])?parts[1]:null}return /^[\w-]{11}$/.test(id||'')?id:null}
+
+function parseUrl(value){try{const u=new URL(value.trim());return ['https:','http:'].includes(u.protocol)&&!u.username&&!u.password?u.href:null}catch{return null}}
+function validSource(type,url){if(type==='youtube')return parseId(url);return parseUrl(url)}
+function save(){try{localStorage.setItem(KEY,JSON.stringify({version:2,sources:videos,lists:iptvLists}));$('storageNotice').textContent=''}catch{$('storageNotice').textContent='No se pudo guardar el catálogo. Los cambios duran sólo esta sesión.'}}
+try{const raw=localStorage.getItem(KEY);if(raw!==null){const data=JSON.parse(raw);if(data.version!==2||!Array.isArray(data.sources))throw Error('Catálogo inválido');iptvLists=Array.isArray(data.lists)?data.lists.filter(l=>l&&typeof l.id==='string'&&typeof l.name==='string').map(l=>({id:l.id,name:l.name.slice(0,180),url:parseUrl(l.url||''),fileName:String(l.fileName||'').slice(0,180),autoUpdate:l.autoUpdate===true,lastUpdated:Number(l.lastUpdated)||0,lastAttempt:Number(l.lastAttempt)||0,error:String(l.error||'').slice(0,400)})):[];const ids=new Set();videos=data.sources.filter(v=>v&&TYPES[v.type]&&typeof v.id==='string'&&/^[a-zA-Z0-9_-]+$/.test(v.id)&&typeof v.url==='string'&&validSource(v.type,v.url)&&!ids.has(v.id)&&ids.add(v.id)).map(v=>({id:v.id,type:v.type,url:validSource(v.type,v.url),title:String(v.title||'').slice(0,120),active:v.active===true,group:String(v.group||'').slice(0,120),listIds:Array.isArray(v.listIds)?v.listIds.filter(id=>iptvLists.some(l=>l.id===id)):[],imported:v.imported===true}));}else{const data=JSON.parse(localStorage.getItem(LEGACY_KEY)||'[]');if(!Array.isArray(data))throw Error();videos=data.filter(v=>v&&typeof v.id==='string'&&parseId(v.id)).map(v=>({id:v.id,type:'youtube',url:v.id,title:String(v.title||'').slice(0,120),active:v.active===true}));}}catch{catalogLoaded=false;$('storageNotice').textContent='No se pudo recuperar el catálogo. El guardado anterior no se modifica hasta que guardes cambios.'}
+// Multiple playlists share channel records by canonical type + URL.
+let importController=null;
+const UPDATE_INTERVAL=6*60*60*1000, RETRY_INTERVAL=20*60*1000;
+
+const MAX_PLAYLIST_BYTES=10*1024*1024;
+function uid(prefix){return prefix+crypto.randomUUID().replaceAll('-','')}
+function filteredCatalog(){const query=$('channelSearch').value.trim().toLocaleLowerCase(),list=$('listFilter').value;return videos.filter(v=>(!list||(v.listIds||[]).includes(list))&&(!query||(label(v)+' '+(v.group||'')).toLocaleLowerCase().includes(query)))}
+function catalogItems(){const items=filteredCatalog(),pages=Math.max(1,Math.ceil(items.length/PAGE_SIZE));catalogPage=Math.min(catalogPage,pages-1);$('pageLabel').textContent=(catalogPage+1)+' / '+pages+' · '+items.length;$('previousPage').disabled=catalogPage===0;$('nextPage').disabled=catalogPage===pages-1;return items.slice(catalogPage*PAGE_SIZE,(catalogPage+1)*PAGE_SIZE)}
+function refreshListFilter(){const select=$('listFilter'),current=select.value;select.replaceChildren(new Option('Todas las fuentes',''));for(const l of iptvLists)select.add(new Option(l.name,l.id));select.value=iptvLists.some(l=>l.id===current)?current:''}
+function splitExtinf(line){let quote=null;for(let i=0;i<line.length;i++){const c=line[i];if((c==='"'||c==="'")&&line[i-1]!=='\\')quote=quote===c?null:quote||c;else if(c===','&&!quote)return [line.slice(0,i),line.slice(i+1).trim()]}return[line,'']}
+function parsePlaylist(text,baseUrl){
+ const clean=text.replace(/^\uFEFF/,'').trim();if(!/^#EXTM3U(?:\s|$)/i.test(clean))throw Error('No es una lista M3U: falta #EXTM3U.');
+ if(/^#EXT-X-/mi.test(clean))throw Error('Es un stream HLS, no una lista de canales. Agregalo como Video / stream directo.');
+ const entries=[],seen=new Set();let metadata={},skipped=0,duplicates=0,special=false;
+ for(const raw of clean.split(/\r?\n/)){
+  const line=raw.trim();if(!line)continue;
+  if(/^#EXTINF:/i.test(line)){const [info,title]=splitExtinf(line);const attrs={};for(const m of info.matchAll(/([\w-]+)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s,]+))/g))attrs[m[1].toLowerCase()]=m[2]??m[3]??m[4];metadata={title:title||attrs['tvg-name']||'',group:attrs['group-title']||'',type:/^(true|1)$/i.test(attrs.radio||'')?'radio':'video'};special=false;continue}
+  if(/^#EXTGRP:/i.test(line)){metadata.group=line.slice(8).trim();continue}
+  if(/^#(?:EXTVLCOPT|KODIPROP):/i.test(line)){special=true;continue}
+  if(line.startsWith('#'))continue;
+  let url=null;try{if(!special&&!line.includes('|'))url=parseUrl(baseUrl?new URL(line,baseUrl).href:line)}catch{}
+  if(!url){skipped++;metadata={};special=false;continue}
+  const yt=parseId(url),type=yt?'youtube':metadata.type||'video',source=yt||url,key=type+'|'+source;
+  if(seen.has(key)){duplicates++;metadata={};special=false;continue}seen.add(key);
+  entries.push({type,url:source,title:String(metadata.title||new URL(url).hostname).slice(0,120),group:String(metadata.group||'').slice(0,120)});metadata={};special=false;
+ }
+ if(!entries.length)throw Error('No hay canales compatibles. Usá URLs HTTP/HTTPS completas, sin cabeceras especiales.');return{entries,skipped,duplicates};
+}
+async function fetchPlaylist(url,signal){
+ const controller=new AbortController(),abort=()=>controller.abort();signal.addEventListener('abort',abort,{once:true});const timeout=setTimeout(abort,20000);
+ try{if(signal.aborted)throw new DOMException('Cancelado','AbortError');const response=await fetch(url,{signal:controller.signal,cache:'no-cache',credentials:'omit',referrerPolicy:'no-referrer'});if(!response.ok)throw Error('El servidor devolvió HTTP '+response.status+'.');
+ if(Number(response.headers.get('content-length'))>MAX_PLAYLIST_BYTES)throw Error('La lista supera los 10 MB.');let text='';
+ if(response.body){const reader=response.body.getReader(),decoder=new TextDecoder();let bytes=0;try{while(true){const {done,value}=await reader.read();if(done)break;bytes+=value.byteLength;if(bytes>MAX_PLAYLIST_BYTES){await reader.cancel();throw Error('La lista supera los 10 MB.')}text+=decoder.decode(value,{stream:true})}text+=decoder.decode()}finally{reader.releaseLock()}}
+ else{text=await response.text();if(new TextEncoder().encode(text).length>MAX_PLAYLIST_BYTES)throw Error('La lista supera los 10 MB.')}
+ return{text,base:response.url||url};
+ }catch(e){if(signal.aborted)throw new DOMException('Cancelado','AbortError');if(e.name==='AbortError')throw Error('El servidor no respondió en 20 segundos.');if(e instanceof TypeError)throw Error('No se pudo leer la URL (conexión, HTTPS o permisos CORS). Descargá la lista e importá el archivo.');throw e}finally{clearTimeout(timeout);signal.removeEventListener('abort',abort)}
+}
+function mergePlaylist(descriptor,parsed){
+ let list=iptvLists.find(l=>descriptor.url?l.url===descriptor.url:!l.url&&l.fileName===descriptor.fileName);
+ if(!list){list={id:uid('l_'),autoUpdate:!!descriptor.url,...descriptor};iptvLists.push(list)}
+ const existing=new Map(videos.map(v=>[v.type+'|'+v.url,v]));let added=0;
+ for(const channel of parsed.entries){const key=channel.type+'|'+channel.url;let v=existing.get(key);if(!v){v={id:uid('s_'),...channel,active:false,imported:true,listIds:[]};videos.push(v);existing.set(key,v);added++}if(!Array.isArray(v.listIds))v.listIds=[];if(!v.listIds.includes(list.id))v.listIds.push(list.id)}
+ list.lastUpdated=Date.now();list.lastAttempt=list.lastUpdated;list.error='';return added;
+}
+function drawLists(){const box=$('iptvLists');box.replaceChildren();for(const l of iptvLists){const row=el('div'),count=videos.filter(v=>(v.listIds||[]).includes(l.id)).length;row.append(el('span',l.name+' · '+count+' canales'));row.append(iconButton('trash','Eliminar lista '+l.name,()=>{if(!confirm('¿Eliminar esta lista y los canales que pertenecen sólo a ella?'))return;iptvLists=iptvLists.filter(x=>x!==l);const removed=new Set();videos=videos.filter(v=>{if(!(v.listIds||[]).includes(l.id))return true;v.listIds=v.listIds.filter(id=>id!==l.id);if(v.imported&&!v.listIds.length){removed.add(v.id);return false}return true});if(removed.has(audioOwner))silenceAll();save();render();drawLists()}));if(l.url){const controls=el('div');const auto=el('input');auto.type='checkbox';auto.checked=l.autoUpdate===true;auto.onchange=()=>{l.autoUpdate=auto.checked;save()};const label=el('label','');label.append(auto,document.createTextNode(' Actualizar automáticamente'));controls.append(label);const refresh=button('↻',()=>refreshSubscriptions(l.id));refresh.title='Actualizar ahora';refresh.setAttribute('aria-label','Actualizar '+l.name);controls.append(refresh);const status=el('p',l.error?'No se pudo actualizar. Se conserva la última copia. '+l.error:l.lastUpdated?'Actualizada: '+new Date(l.lastUpdated).toLocaleString():'Pendiente de actualización','small');controls.append(status);row.append(controls)}box.append(row)}}
+async function importPlaylists(){
+ if(importController)return;const inputs=$('iptvUrls').value.split(/\r?\n/).map(s=>s.trim()).filter(Boolean),files=[...$('iptvFiles').files];if(!inputs.length&&!files.length){$('iptvResult').textContent='Ingresá una URL o elegí archivos de listas.';return}
+ importController=new AbortController();const signal=importController.signal;let lines=[],imported=0;$('importIptv').disabled=$('subscribeIptvOrg').disabled=true;$('closeIptv').textContent='Cancelar importación';$('iptvLists').inert=true;
+ const tasks=[...new Set(inputs)].map((raw,i)=>({name:'URL '+(i+1),run:async()=>{const url=parseUrl(raw);if(!url)throw Error('URL inválida; usá HTTP o HTTPS.');const data=await fetchPlaylist(url,signal);const u=new URL(url);return{descriptor:{url,name:u.hostname+' · '+(u.pathname.split('/').pop()||'Lista IPTV'),fileName:''},parsed:parsePlaylist(data.text,data.base)}}}));
+ for(const file of files)tasks.push({name:file.name,run:async()=>{if(file.size>MAX_PLAYLIST_BYTES)throw Error('El archivo supera los 10 MB.');return{descriptor:{url:null,name:file.name,fileName:file.name},parsed:parsePlaylist(await file.text(),null)}}});
+ try{for(const task of tasks){if(signal.aborted)break;$('iptvResult').textContent=[...lines,'Leyendo '+task.name+'…'].join('\n');try{const result=await task.run();if(signal.aborted)break;const added=mergePlaylist(result.descriptor,result.parsed);imported++;save();lines.push(task.name+': '+added+' canales nuevos; '+result.parsed.entries.length+' en la lista'+(result.parsed.skipped?' · '+result.parsed.skipped+' omitidos (URL o cabeceras incompatibles)':'')+(result.parsed.duplicates?' · '+result.parsed.duplicates+' duplicados omitidos':'')+'.')}catch(e){if(signal.aborted)break;lines.push(task.name+': '+e.message)}}
+ if(signal.aborted)lines.push('Importación cancelada. Las listas ya importadas se conservaron.');if(imported){catalogPage=0;render();drawLists();$('iptvUrls').value='';$('iptvFiles').value=''}$('iptvResult').textContent=lines.join('\n');
+ }finally{importController=null;$('importIptv').disabled=$('subscribeIptvOrg').disabled=false;$('closeIptv').textContent='Cerrar';$('iptvLists').inert=false}
+}
+// Synchronize memberships by URL; keep active removed channels as personal sources.
+function synchronizePlaylist(list,parsed){
+ const keys=new Set(parsed.entries.map(c=>c.type+'|'+c.url));
+ const metadata=new Map(parsed.entries.map(c=>[c.type+'|'+c.url,c]));
+ for(const v of videos){if(v.imported&&(v.listIds||[]).includes(list.id)&&v.listIds.length===1){const next=metadata.get(v.type+'|'+v.url);if(next){v.title=next.title;v.group=next.group}}}
+ videos=videos.filter(v=>{if(!(v.listIds||[]).includes(list.id)||keys.has(v.type+'|'+v.url))return true;v.listIds=v.listIds.filter(id=>id!==list.id);if(v.imported&&!v.listIds.length){if(v.active){v.imported=false;return true}return false}return true});
+ return mergePlaylist(list,parsed);
+}
+async function refreshSubscriptions(id){
+ if(importController||!navigator.onLine)return;
+ const now=Date.now(),lists=iptvLists.filter(l=>l.url&&(id?l.id===id:l.autoUpdate&&now-(l.lastUpdated||0)>=UPDATE_INTERVAL&&now-(l.lastAttempt||0)>=RETRY_INTERVAL));
+ if(!lists.length)return;importController=new AbortController();const signal=importController.signal;
+ $('importIptv').disabled=$('subscribeIptvOrg').disabled=true;$('iptvLists').inert=true;$('closeIptv').textContent='Cancelar actualización';
+ try{for(const l of lists){if(signal.aborted)break;l.lastAttempt=Date.now();try{const data=await fetchPlaylist(l.url,signal);const parsed=parsePlaylist(data.text,data.base);if(signal.aborted)break;if(!iptvLists.includes(l))continue;const added=synchronizePlaylist(l,parsed);$('iptvResult').textContent=l.name+': actualizada · '+parsed.entries.length+' canales · '+added+' nuevos.';save();render()}catch(e){if(signal.aborted)break;l.error=e.message;$('iptvResult').textContent=l.name+': '+e.message+' Se conserva la última copia.';save()}}}
+ finally{importController=null;$('importIptv').disabled=$('subscribeIptvOrg').disabled=false;$('iptvLists').inert=false;$('closeIptv').textContent='Cerrar';drawLists()}
+}
+async function subscribeIptvOrg(){
+ if(importController)return;
+ const url='https://iptv-org.github.io/iptv/index.m3u';let list=iptvLists.find(l=>l.url===url);
+ if(!list){list={id:uid('l_'),name:'IPTV-org · Mundial',url,fileName:'',autoUpdate:true,lastUpdated:0,lastAttempt:0};iptvLists.push(list)}
+ list.autoUpdate=true;save();drawLists();await refreshSubscriptions(list.id);
+}
+function initIptv(){$('subscribeIptvOrg').onclick=subscribeIptvOrg;setTimeout(()=>refreshSubscriptions(),0);setInterval(()=>refreshSubscriptions(),60000);window.addEventListener('online',()=>refreshSubscriptions());document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshSubscriptions()});setIcon($('iptvButton'),'all','Importar / administrar listas IPTV');$('iptvButton').onclick=()=>{drawLists();$('iptvDialog').showModal()};$('importIptv').onclick=importPlaylists;$('closeIptv').onclick=()=>{if(importController)importController.abort();else $('iptvDialog').close()};$('iptvDialog').addEventListener('cancel',e=>{if(importController){e.preventDefault();importController.abort()}});$('channelSearch').oninput=$('listFilter').onchange=()=>{catalogPage=0;render()};$('previousPage').onclick=()=>{catalogPage--;render()};$('nextPage').onclick=()=>{catalogPage++;render()};}
+
+// Add the default news channels once without replacing a user's existing catalog.
+const DEFAULT_CHANNELS=[
+ {title:'A24',url:'ArKbAx1K-2U',active:true},
+ {title:'LN+',url:'FEWZjXJ7M0c',active:true},
+ {title:'TN',url:'cb12KmMMDJA',active:true},
+ {title:'Crónica',url:'hw4uHyct4vg',active:true},
+ {title:'26',url:'C_RnFD6xiX8',active:true},
+ {title:'TELEFE Rosario',url:'-vXfVikRPTw',active:false},
+ {title:'CNN',url:'Qr61waJ6AZg',active:true}
+];
+try{if(catalogLoaded&&localStorage.getItem(KEY+'.defaultNews.v1')!=='1'){const known=new Set(videos.filter(v=>v.type==='youtube').map(v=>v.url));let added=0;for(const channel of DEFAULT_CHANNELS){if(known.has(channel.url))continue;videos.push({id:'s_'+crypto.randomUUID().replaceAll('-',''),type:'youtube',url:channel.url,title:channel.title,active:channel.active,listIds:[],imported:false});known.add(channel.url);added++}localStorage.setItem(KEY+'.defaultNews.v1','1');if(added)save()}}catch{}
+// Radios do not reconnect automatically on page load; only one can be selected.
+let radioSeen=false;videos.forEach(v=>{if(v.type==='radio'&&v.active){if(radioSeen)v.active=false;radioSeen=true}});
+function el(tag,text,cls){const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n}
+function button(text,action){const b=el('button',text);b.type='button';b.onclick=action;return b}
+
+const icons={
+ sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5 19 19M5 19l1.5-1.5M17.5 6.5 19 5"/>',
+ user:'<circle cx="12" cy="8" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/>',
+ menu:'<path d="M3 5h18v14H3zM9 5v14"/>',plus:'<path d="M12 5v14M5 12h14"/>',
+ play:'<path d="m8 4 12 8-12 8z"/>',pause:'<path d="M8 5v14M16 5v14"/>',stop:'<path d="M6 6h12v12H6z"/>',
+ sound:'<path d="m11 4-6 5H2v6h3l6 5zM15 8a6 6 0 0 1 0 8M18 5a10 10 0 0 1 0 14"/>',
+ muted:'<path d="m11 4-6 5H2v6h3l6 5zM16 9l6 6M22 9l-6 6"/>',
+ focus:'<path d="M8 3H3v5M16 3h5v5M3 16v5h5M21 16v5h-5"/>',close:'<path d="m6 6 12 12M6 18 18 6"/>',
+ edit:'<path d="m15 4 5 5M4 20l5-1L21 7l-4-4L5 15z"/>',trash:'<path d="M3 6h18M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7M14 10v7"/>',
+ external:'<path d="M14 3h7v7M21 3 10 14M10 5H4v15h15v-6"/>',config:'<path d="M4 5h16M4 12h16M4 19h16M8 3v4M16 10v4M10 17v4"/>',all:'<path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z"/>',none:'<path d="M4 12h16"/>'
+};
+function setIcon(node,icon,text){node.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true">'+icons[icon]+'</svg>';node.classList.add('icon-button');node.title=text;node.setAttribute('aria-label',text)}
+function iconButton(icon,text,action){const b=button('',action);setIcon(b,icon,text);return b}
+
+function label(v){return v.title||(v.type==='youtube'?'YouTube · '+v.url:new URL(v.url).hostname)}
+function setCatalogCollapsed(collapsed){document.querySelector('.layout').classList.toggle('catalog-collapsed',collapsed);$('sidebar').hidden=collapsed;$('toggleCatalog').setAttribute('aria-expanded',String(!collapsed));setIcon($('toggleCatalog'),'menu',collapsed?'Mostrar catálogo':'Ocultar catálogo');try{localStorage.setItem(LEGACY_KEY+'.collapsed',String(collapsed))}catch{}}
+$('toggleCatalog').onclick=()=>setCatalogCollapsed(!$('sidebar').hidden);
+let collapsed=true;try{collapsed=localStorage.getItem(LEGACY_KEY+'.collapsed')!=='false'}catch{}setCatalogCollapsed(collapsed);
+let detachedWindow=null;
+if(new URLSearchParams(location.search).has('detached'))document.documentElement.classList.add('detached-view');
+setIcon($('configButton'),'config','Importar / exportar catálogo');
+$('configButton').onclick=()=>{$('configStatus').textContent='';$('configText').value='';$('configDialog').showModal()};
+$('closeConfig').onclick=()=>$('configDialog').close();
+$('exportConfig').onclick=()=>{$('configText').value=['ALIAS\tURL\tTIPO\tESTADO',...videos.map(v=>[label(v),v.type==='youtube'?'https://www.youtube.com/watch?v='+v.url:v.url,v.type,v.active?'ACTIVO':'INACTIVO'].map(x=>String(x).replace(/[\t\r\n]/g,' ')).join('\t'))].join('\n');$('configStatus').textContent=videos.length+' fuentes exportadas. Copiá el contenido para llevarlo a otro equipo.'};
+function parseConfigLine(line){const cells=[];let value='',quoted=false;for(let i=0;i<line.length;i++){const c=line[i];if(c==='"'){if(quoted&&line[i+1]==='"'){value+='"';i++}else quoted=!quoted}else if(c==='\t'&&!quoted){cells.push(value);value=''}else value+=c}if(quoted)throw Error('Hay comillas sin cerrar.');cells.push(value);return cells}
+$('importConfig').onclick=()=>{try{const rows=$('configText').value.replace(/^\uFEFF/,'').split(/\r?\n/).filter(x=>x.trim());if(!rows.length)throw Error('Pegá la lista exportada antes de importar.');let start=0;const head=parseConfigLine(rows[0]).map(x=>x.trim().toLocaleUpperCase());if(head[0]==='ALIAS'&&head[1]==='URL')start=1;const seen=new Set(),next=[];for(let i=start;i<rows.length;i++){const c=parseConfigLine(rows[i]);if(c.length!==4)throw Error('La línea '+(i+1)+' debe tener cuatro columnas separadas por tabuladores.');const [title,raw,typeRaw,stateRaw]=c.map(x=>x.trim());const typeMap={YOUTUBE:'youtube',RADIO:'radio',WEB:'web','PÁGINA WEB':'web','PAGINA WEB':'web',VIDEO:'video','VIDEO DIRECTO':'video',STREAM:'video'},type=typeMap[typeRaw.toLocaleUpperCase()],state=stateRaw.toLocaleUpperCase(),url=type==='youtube'?parseId(raw):parseUrl(raw);if(!title||!type||!url||!['ACTIVO','INACTIVO','ACTIVE','INACTIVE','TRUE','FALSE','1','0'].includes(state))throw Error('Datos inválidos en la línea '+(i+1)+'. Revisá ALIAS, URL, TIPO y estado.');const key=type+'|'+url;if(seen.has(key))throw Error('La URL aparece más de una vez (línea '+(i+1)+').');seen.add(key);next.push({id:'s_'+crypto.randomUUID().replaceAll('-',''),type,url,title:title.slice(0,120),active:['ACTIVO','ACTIVE','TRUE','1'].includes(state),listIds:[],imported:false})}if(!next.length)throw Error('No hay fuentes para importar.');if(!confirm('Se reemplazará el catálogo de fuentes ('+videos.length+' actuales) por las '+next.length+' fuentes de la lista. ¿Continuar?'))return;silenceAll();videos=next;catalogPage=0;save();render();$('configStatus').textContent='Catálogo importado: '+next.length+' fuentes.'}catch(e){$('configStatus').textContent=e.message}};
+setIcon($('detachWindow'),'external','Separar ventana');
+$('detachWindow').onclick=()=>{
+ try{
+  if(detachedWindow&&!detachedWindow.closed){detachedWindow.focus();return}
+  const width=Math.min(1200,screen.availWidth||1200),height=Math.min(800,screen.availHeight||800);
+  const detachedUrl=new URL(location.href);detachedUrl.searchParams.set('detached','1');detachedWindow=window.open(detachedUrl.href,'mosaico_detached','popup=yes,width='+width+',height='+height+',resizable=yes,scrollbars=no');
+  if(!detachedWindow){toast('El navegador bloqueó la ventana. Permití las ventanas emergentes para este sitio y volvé a intentar.');return}
+  silenceAll();detachedWindow.focus();
+ }catch{toast('No se pudo abrir la ventana independiente en este navegador.')}
+};
+initIptv();setIcon($('add'),'plus','Agregar fuente');setIcon($('all'),'all','Mostrar fuentes (una radio como máximo)');setIcon($('none'),'none','Desactivar todas las fuentes');
+// Wake Lock is opt-in for this session. Never imply that it overrides a manual lock.
+let wakeWanted=false,wakeSentinel=null,wakePending=false,toastTimer;
+const wakeSupported=window.isSecureContext&&'wakeLock' in navigator;
+function toast(message){clearTimeout(toastTimer);$('localToast').textContent=message;$('localToast').hidden=false;toastTimer=setTimeout(()=>$('localToast').hidden=true,7000)}
+function paintWake(){const held=!!wakeSentinel&&!wakeSentinel.released;setIcon($('wake'),'sun',held?'Permitir que la pantalla se apague':wakeWanted?'Pantalla encendida en espera · desactivar':'Mantener pantalla encendida');$('wake').setAttribute('aria-pressed',String(held));$('wake').dataset.waiting=String(wakeWanted&&!held);$('wake').disabled=wakePending}
+async function acquireWake(){
+ if(!wakeWanted||wakePending||wakeSentinel||document.visibilityState!=='visible')return;
+ wakePending=true;paintWake();
+ try{const sentinel=await navigator.wakeLock.request('screen');
+  if(!wakeWanted||document.visibilityState!=='visible'){await sentinel.release();return}
+  wakeSentinel=sentinel;sentinel.addEventListener('release',()=>{if(wakeSentinel===sentinel){wakeSentinel=null;paintWake();if(wakeWanted&&document.visibilityState==='visible')toast('El sistema liberó la pantalla. Desactivá y activá el botón para reintentar.')}});
+ }catch{wakeWanted=false;toast('No se pudo mantener la pantalla encendida. Revisá el ahorro de batería y usá HTTPS o localhost en un navegador compatible.')}
+ finally{wakePending=false;paintWake()}
+}
+$('wake').onclick=async()=>{
+ if(!wakeSupported){toast('Este navegador no permite mantener la pantalla encendida aquí. Probá con HTTPS o localhost y un navegador compatible.');return}
+ wakeWanted=!wakeWanted;
+ if(wakeWanted){await acquireWake();if(wakeSentinel)toast('Pantalla encendida mientras Mosaico esté visible. El bloqueo manual sigue funcionando.')}
+ else{const sentinel=wakeSentinel;wakeSentinel=null;try{await sentinel?.release()}catch{}paintWake();toast('Apagado automático de pantalla permitido.')}
+};
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&wakeWanted)acquireWake()});
+window.addEventListener('pagehide',()=>{const sentinel=wakeSentinel;wakeSentinel=null;sentinel?.release().catch(()=>{})});
+window.addEventListener('pageshow',()=>{if(wakeWanted)acquireWake()});
+paintWake();setIcon($('youtubeLogin'),'user','Cuenta de YouTube / Premium');
+$('youtubeLogin').onclick=()=>{
+ const selected=videos.find(v=>v.id===audioOwner&&v.type==='youtube')||videos.find(v=>v.type==='youtube'&&v.active);const id=selected?.url;
+ const link=$('premiumVideo');link.hidden=!id;
+ if(id){const r=players.get(selected.id);let seconds=0;try{seconds=Math.floor(r?.player?.getCurrentTime()||0)}catch{}link.href='https://www.youtube.com/watch?v='+id+(seconds>0?'&t='+seconds+'s':'')}
+ $('youtubeAccount').showModal();
+};
+$('premiumVideo').onclick=()=>{silenceAll()};
+$('closeAccount').onclick=()=>$('youtubeAccount').close();
+
+
+// Enumerate balanced row arrangements and maximize the visible 16:9 image
+// area. Every row fills the width, including incomplete final rows.
+function chooseLayout(count,width,height){
+ if(!count||width<=0||height<=0)return [];
+ let best=[],bestScore=-1;
+ const gap=0,ratio=16/9;
+ for(let rows=1;rows<=count;rows++){
+  const base=Math.floor(count/rows),extra=count%rows;
+  const rowHeight=(height-gap*(rows-1))/rows;
+  let score=0;const cells=[];
+  for(let row=0;row<rows;row++){
+   const columns=base+(row<extra?1:0),cellWidth=(width-gap*(columns-1))/columns;
+   const imageWidth=Math.min(cellWidth,rowHeight*ratio);
+   score+=columns*imageWidth*imageWidth/ratio;
+   for(let col=0;col<columns;col++)cells.push({x:col*(cellWidth+gap),y:row*(rowHeight+gap),width:cellWidth,height:rowHeight});
+  }
+  if(score>bestScore+.01){best=cells;bestScore=score}
+ }
+ return best;
+}
+function fitWall(){
+ const grid=$('grid'),bounds=grid.getBoundingClientRect();
+ const cells=chooseLayout(players.size,bounds.width,bounds.height);
+ [...players.values()].forEach((r,i)=>{const cell=cells[i];if(!cell)return;for(const [name,value] of Object.entries({x:cell.x,y:cell.y,w:cell.width,h:cell.height}))r.card.style.setProperty('--tile-'+name,value+'px')});
+}
+let wallFrame=0;
+function scheduleWall(){cancelAnimationFrame(wallFrame);wallFrame=requestAnimationFrame(fitWall)}
+for(const id of ['notice','storageNotice','apiNotice'])$('messages').append($(id));
+$('sidebar').insertBefore($('count'),$('catalog'));
+new ResizeObserver(scheduleWall).observe($('grid'));
+window.addEventListener('resize',scheduleWall);
+window.visualViewport?.addEventListener('resize',scheduleWall);
+
+
+function status(r,message,error=false){r.status.textContent=message;r.card.classList.toggle('source-error',error)}
+function stopOutput(r){
+ r.fadingOut=false;
+ if(r.type==='youtube'){if(r.ready)r.player.mute();return}
+ if(r.media){r.media.muted=true;r.media.pause();if(r.type==='radio'){r.media.removeAttribute('src');r.media.load()}}
+ if(r.frame){r.frame.remove();r.frame=null;r.placeholder.hidden=false}
+ setIcon(r.play,'play',r.type==='web'?'Abrir página':'Reproducir');
+}
+function silenceAll(){audioEpoch++;audioOwner=null;for(const r of players.values())stopOutput(r);updateAudio()}
+function dispose(r){if(audioOwner===r.id||r.fadingOut)silenceAll();stopOutput(r);r.player?.destroy();r.card.remove()}
+function render(){
+ refreshListFilter();const list=$('catalog');list.replaceChildren();
+ if(!videos.length)list.append(el('p','Todavía no hay fuentes guardadas.','small'));
+ for(const v of catalogItems()){const row=el('div',undefined,'catalog-item'),lab=el('label'),check=el('input');check.type='checkbox';check.checked=v.active;
+ check.onchange=()=>{if(!check.checked&&audioOwner===v.id)silenceAll();v.active=check.checked;save();render();if(v.type==='radio'&&v.active)selectAudio(v.id)};
+ lab.append(check,document.createTextNode(label(v)));row.append(el('span',TYPES[v.type]+(v.group?' · '+v.group:''),'kind-tag'),lab);
+ const actions=el('div',undefined,'row');
+ if(v.type==='radio'){const play=iconButton(audioOwner===v.id?'stop':'play',audioOwner===v.id?'Detener radio':'Escuchar radio',()=>{if(audioOwner===v.id){selectAudio(null);return}v.active=true;save();render();selectAudio(v.id)});play.classList.add('radio-play');play.setAttribute('aria-pressed',String(audioOwner===v.id));actions.append(play)}
+ actions.append(iconButton('edit','Editar',()=>edit(v)),iconButton('trash','Eliminar',()=>{if(confirm('¿Eliminar «'+label(v)+'»?')){if(audioOwner===v.id)silenceAll();videos=videos.filter(x=>x!==v);save();render()}}));row.append(actions);list.append(row)}
+ for(const [id,r] of players){const v=videos.find(v=>v.id===id&&v.active);if(!v||r.type!==v.type||r.url!==v.url){if(focused===id)closeFocus();dispose(r);players.delete(id)}else{r.heading.textContent=label(v);if(r.placeholderTitle)r.placeholderTitle.textContent=label(v)}}
+ for(const v of videos.filter(v=>v.active))if(!players.has(v.id))makeCard(v);
+ const n=players.size;$('count').textContent=n+' activas / '+videos.length+' guardadas';$('empty').hidden=n>0;$('all').disabled=!videos.length;$('none').disabled=!n;updateAudio();scheduleWall();
+}
+function makeCard(v){
+ const card=el('article',undefined,'card'+(v.type==='web'?' web-source':'')),heading=el('h3',label(v)),top=el('div',undefined,'card-top');heading.id='title-'+v.id;
+ const focus=iconButton('focus','Enfocar',()=>openFocus(v.id));focus.classList.add('focus-button');const close=iconButton('close','Cerrar enfoque',closeFocus);close.classList.add('close-focus');top.append(heading,focus,close);
+ const screen=el('div',undefined,'screen'),controls=el('div',undefined,'controls'),play=iconButton('play','Reproducir',()=>playSource(v.id)),stop=iconButton('stop','Detener',()=>stopSource(v.id)),sound=iconButton('muted','Activar audio',()=>toggleAudio(v.id)),seek=el('input');
+ seek.type='range';seek.min=0;seek.value=0;seek.step=.1;seek.className='seek';seek.setAttribute('aria-label','Posición del video');seek.disabled=true;seek.hidden=!['youtube','video'].includes(v.type);
+ seek.onchange=()=>{const r=players.get(v.id);if(r.type==='youtube'&&r.ready)r.player.seekTo(Number(seek.value),true);else if(r.media)r.media.currentTime=Number(seek.value)};
+ const link=el('a');setIcon(link,'external','Abrir fuera de Mosaico');link.href=v.type==='youtube'?'https://www.youtube.com/watch?v='+v.url:v.url;link.target='_blank';link.rel='noopener noreferrer';link.title='Abrir fuera de Mosaico (audio independiente)';
+ controls.append(play,stop,sound,link,seek);const state=el('div','','status');state.setAttribute('role','status');
+ const reveal=button('',()=>{card.classList.toggle('touch-controls');reveal.blur()});reveal.className='touch-reveal';reveal.tabIndex=-1;reveal.setAttribute('aria-label','Mostrar u ocultar controles');card.append(screen,reveal,top,controls,state);$('grid').append(card);
+ const r={id:v.id,type:v.type,url:v.url,card,heading,screen,play,stop,sound,seek,status:state,close,focus,ready:false,player:null,media:null,frame:null};players.set(v.id,r);
+ if(v.type==='youtube'){const mount=el('div');mount.id='yt-'+(++serial);screen.append(mount);r.mount=mount;play.disabled=sound.disabled=stop.disabled=true;status(r,'Esperando a YouTube…');ensureYouTube();if(apiReady)createPlayer(v.id,r)}
+ else if(v.type==='web'||v.type==='radio'){
+ const placeholder=el('div',undefined,'source-placeholder'),title=el('strong',label(v));placeholder.append(title,el('p',v.type==='radio'?'Radio online · una emisora a la vez':'La página se abre al seleccionarla y se cierra al activar otra fuente de audio.'));placeholder.append(button(v.type==='radio'?'Escuchar':'Abrir página',()=>selectAudio(v.id)));screen.append(placeholder);r.placeholder=placeholder;r.placeholderTitle=title;r.ready=true;
+ status(r,v.type==='web'?'Si el sitio impide la inserción, usá el enlace externo.':'Lista · no conectada');
+ }else{r.ready=true;makeMedia(r);screen.append(r.media);r.media.src=r.url;status(r,'Video directo · listo')}
+}
+function makeMedia(r){if(r.media)return r.media;const media=document.createElement(r.type==='radio'?'audio':'video');media.preload='none';media.muted=true;media.playsInline=true;r.media=media;
+ media.addEventListener('error',()=>{if(!media.getAttribute('src'))return;if(audioOwner===r.id){audioEpoch++;audioOwner=null;stopOutput(r);updateAudio()}status(r,'No se pudo reproducir: revisá la URL, HTTPS y el formato del stream.',true)});
+ media.addEventListener('playing',()=>{if(players.get(r.id)===r){setIcon(r.play,'pause','Pausar');status(r,'Reproduciendo')}});
+ media.addEventListener('pause',()=>setIcon(r.play,'play','Reproducir'));
+ media.addEventListener('waiting',()=>status(r,'Cargando transmisión…'));
+ media.addEventListener('ended',()=>{if(audioOwner===r.id){audioOwner=null;updateAudio()}status(r,'Finalizado')});
+ // Defend against native controls or delayed events changing ownership.
+ media.addEventListener('volumechange',()=>{if(audioOwner!==r.id&&!media.muted&&!r.fadingOut)media.muted=true});return media;
+}
+function createPlayer(id,r){if(r.type!=='youtube'||r.player)return;const vars={playsinline:1,controls:0,disablekb:1,fs:0,autoplay:0,rel:0};if(/^https?:$/.test(location.protocol))vars.origin=location.origin;
+ try{r.player=new YT.Player(r.mount.id,{host:'https://www.youtube-nocookie.com',width:'100%',height:'100%',videoId:r.url,playerVars:vars,events:{onReady:e=>{if(players.get(id)!==r)return;r.ready=true;e.target.mute();r.play.disabled=r.stop.disabled=r.sound.disabled=false;e.target.getIframe().title=r.heading.textContent;status(r,'Listo · presioná Reproducir')},onStateChange:e=>{if(players.get(id)!==r)return;setIcon(r.play,e.data===1?'pause':'play',e.data===1?'Pausar':'Reproducir');status(r,({1:'Reproduciendo',2:'En pausa',0:'Finalizado',3:'Cargando…'})[e.data]||'Listo')},onAutoplayBlocked:()=>status(r,'Presioná Reproducir para continuar.'),onError:e=>status(r,({100:'Video no disponible.',101:'El autor no permite insertar este video.',150:'El autor no permite insertar este video.',153:'YouTube requiere HTTPS o localhost para identificar el sitio.'})[e.data]||'Error de YouTube ('+e.data+').',true)}})}catch{status(r,'No se pudo crear el reproductor.',true)}
+}
+function ensureYouTube(){if(apiRequested)return;apiRequested=true;const api=document.createElement('script');api.src='https://www.youtube.com/iframe_api';api.async=true;api.onerror=()=>{$('apiNotice').textContent='No se pudo cargar YouTube. Las otras fuentes siguen disponibles.'};document.head.append(api)}
+window.onYouTubeIframeAPIReady=()=>{apiReady=true;$('apiNotice').textContent='';for(const [id,r] of players)if(r.type==='youtube')createPlayer(id,r)};
+function fade(r,target,epoch){return new Promise(resolve=>{const media=r.media,initial=media.volume,start=performance.now();const tick=()=>{if(epoch!==audioEpoch||players.get(r.id)!==r){resolve(false);return}const t=Math.min(1,(performance.now()-start)/500);media.volume=initial+(target-initial)*t;if(t<1)setTimeout(tick,20);else resolve(true)};tick()})}
+function mediaCheck(r){const u=new URL(r.url);if(location.protocol==='https:'&&u.protocol==='http:')throw Error('El sitio HTTPS necesita una transmisión HTTPS.');if(/\.m3u8$/i.test(u.pathname)&&!makeMedia(r).canPlayType('application/vnd.apple.mpegurl'))throw Error('Este navegador no reproduce HLS de forma nativa. Usá una URL MP3/AAC o un navegador con HLS.');if(/\.(m3u|pls)$/i.test(u.pathname))throw Error('Ingresá el stream directo; importá las listas con el botón Listas IPTV.')}
+async function selectAudio(id){
+ const r=id?players.get(id):null;if(id&&(!r||!r.ready))return;
+ const epoch=++audioEpoch;
+ const oldRadios=[...players.values()].filter(p=>p.type==='radio'&&p.id!==id&&p.media&&!p.media.paused&&!p.media.muted);
+ for(const p of players.values()){p.fadingOut=oldRadios.includes(p);if(p.id!==id&&!p.fadingOut)stopOutput(p)}
+ audioOwner=id;updateAudio();
+ let started=Promise.resolve(null),timer;
+ try{
+ if(r?.media||r?.type==='radio'){mediaCheck(r);const m=makeMedia(r);m.muted=true;if(r.type==='radio'){m.volume=0;m.src=r.url}else m.volume=1;status(r,'Conectando…');
+ // Call play during the user's gesture, before the first await; keep it muted
+ // until the old radio has fully stopped. Immediately handle rejection.
+ started=Promise.race([Promise.resolve(m.play()).then(()=>null,e=>e),new Promise(resolve=>{timer=setTimeout(()=>resolve(Error('La transmisión no respondió a tiempo.')),15000)})]);
+ }
+ const faded=await Promise.all(oldRadios.map(p=>fade(p,0,epoch)));
+ if(epoch!==audioEpoch)return;
+ for(const p of oldRadios){p.fadingOut=false;stopOutput(p)}
+ for(const v of videos)if(v.type==='radio'&&v.id!==id)v.active=false;
+ if(r?.type==='youtube'){r.player.setVolume(100);r.player.unMute()}
+ else if(r?.type==='web'){
+ mediaCheck(r);if(!r.frame){const frame=document.createElement('iframe');frame.title=r.heading.textContent;frame.setAttribute('sandbox','allow-scripts allow-forms allow-same-origin allow-presentation');frame.allow='autoplay; fullscreen';frame.referrerPolicy='strict-origin-when-cross-origin';frame.src=r.url;r.frame=frame;r.screen.append(frame);r.placeholder.hidden=true}status(r,'Página seleccionada · su audio se controla cerrándola.');setIcon(r.play,'stop','Cerrar página');
+ }else if(r?.media){const error=await started;clearTimeout(timer);if(epoch!==audioEpoch)return;if(error)throw error;r.media.muted=false;if(r.type==='radio')await fade(r,1,epoch)}
+ if(epoch!==audioEpoch)return;save();render();
+ }catch(error){if(epoch===audioEpoch){audioEpoch++;audioOwner=null;for(const p of players.values()){p.fadingOut=false;stopOutput(p)}updateAudio();if(r)status(r,error.name==='NotAllowedError'?'El navegador bloqueó la reproducción. Tocá Reproducir para reintentar.':error.message||'No se pudo abrir la fuente.',true);toast(error.message||'No se pudo abrir la fuente.')}}finally{clearTimeout(timer)}
+}
+function toggleAudio(id){selectAudio(audioOwner===id?null:id)}
+function playSource(id){const r=players.get(id);if(!r?.ready)return;if(r.type==='youtube'){r.player.getPlayerState()===1?r.player.pauseVideo():r.player.playVideo()}else if(r.type==='radio'||r.type==='web')selectAudio(audioOwner===id?null:id);else if(!r.media.paused)r.media.pause();else{try{mediaCheck(r);if(!r.media.src)r.media.src=r.url;r.media.play().catch(e=>status(r,e.message,true))}catch(e){status(r,e.message,true)}}}
+function stopSource(id){const r=players.get(id);if(!r)return;if(audioOwner===id){selectAudio(null)}else stopOutput(r);if(r.type==='youtube'&&r.ready){r.player.pauseVideo();r.player.seekTo(0,true)}else if(r.type==='video'){r.media.pause();try{r.media.currentTime=0}catch{}}}
+function updateAudio(){for(const [id,r] of players){setIcon(r.sound,audioOwner===id?'sound':'muted',audioOwner===id?(r.type==='web'?'Cerrar página y audio':'Silenciar'):(r.type==='web'?'Abrir página y cederle el audio':'Activar audio'));r.sound.setAttribute('aria-pressed',String(audioOwner===id))}}
+function openFocus(id){if(focused)closeFocus();focused=id;returnFocus=document.activeElement;const r=players.get(id);r.card.classList.add('focused');r.card.setAttribute('role','dialog');r.card.setAttribute('aria-modal','true');r.card.setAttribute('aria-labelledby',r.heading.id);$('backdrop').hidden=false;$('header').inert=$('sidebar').inert=true;for(const [key,p] of players)p.card.inert=key!==id;document.body.style.overflow='hidden';r.close.focus()}
+function closeFocus(){if(!focused)return;const r=players.get(focused);r?.card.classList.remove('focused');r?.card.removeAttribute('role');r?.card.removeAttribute('aria-modal');$('backdrop').hidden=true;$('header').inert=$('sidebar').inert=false;for(const p of players.values())p.card.inert=false;document.body.style.overflow='';focused=null;returnFocus?.focus()}
+document.addEventListener('keydown',e=>{if(!focused)return;if(e.key==='Escape'){e.preventDefault();closeFocus()}if(e.key==='Tab'){const nodes=[...players.get(focused).card.querySelectorAll('button:not(:disabled),a,input:not(:disabled),iframe')].filter(n=>n.getClientRects().length);const first=nodes[0],last=nodes.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});$('backdrop').onclick=closeFocus;
+
+// Schema v2 stores the source type separately from its URL so a future playlist
+// importer can add entries without changing playback ownership or persistence.
+const PRESETS=[
+ ['Radio Mitre · AM 790','https://buecrplb01.cienradios.com.ar/Mitre790.aac'],
+ ['Aspen · FM 102.3','https://playerservices.streamtheworld.com/api/livestream-redirect/ASPENAAC'],
+ ['Continental · AM 590','https://playerservices.streamtheworld.com/api/livestream-redirect/CONTINENTAL_SC'],
+ ['FutuRock','https://nowplaying.mdstrm.com/5b7dcf666253b80766f27858/576b06096457cff453000015/live/icecast.audio'],
+ ['Rivadavia · AM 630','https://streammax.alsolnet.com/radiorivadavia'],
+ ['La Red · AM 910 (HLS)','https://strive-sdn-lsdlive-live.akamaized.net/live_passthrough_static/amlared/playlist.m3u8'],
+ ['Mega · FM 98.3 (HLS)','https://server1.stweb.tv/mega983/live/chunks.m3u8'],
+ ['Pop Radio · FM 101.5 (HLS)','https://s8.stweb.tv/popradio/live/playlist.m3u8']
+];
+PRESETS.forEach(([name,url],i)=>{const option=el('option',name);option.value=i;$('preset').append(option)});
+$('preset').onchange=()=>{if($('preset').value!==''){const [name,url]=PRESETS[Number($('preset').value)];$('source').value=url;$('name').value=name}};
+function kindHelp(){const type=$('kind').value;$('radioPresets').hidden=type!=='radio';$('sourceLabel').textContent=type==='youtube'?'URL de YouTube o ID':'URL directa '+(type==='web'?'de la página':'de la transmisión');$('source').placeholder=type==='youtube'?'https://www.youtube.com/watch?v=…':'https://…';$('sourceHelp').textContent=({youtube:'Los videos comienzan silenciados.',radio:'MP3/AAC o HLS si tu navegador lo admite. Emisoras de referencia: pueden cambiar de URL. Una radio a la vez; fade de salida y entrada de 0,5 s donde el navegador permita ajustar volumen.',web:'Al abrir esta página se detienen las radios y se silencian los videos. Al ceder el audio, la página se cierra y pierde su posición. Algunos sitios bloquean la inserción. Los enlaces externos tienen audio independiente.',video:'Video directo compatible con el navegador (por ejemplo MP4). HLS requiere soporte nativo. Importá listas de canales con el botón Listas IPTV.'})[type]}
+$('kind').onchange=()=>{$('preset').value='';kindHelp()};
+function edit(v=null){editing=v?.id||null;$('editTitle').textContent=v?'Editar fuente':'Agregar fuente';$('kind').value=v?.type||'youtube';$('source').value=v?.url||'';$('name').value=v?.title||'';$('active').checked=v?v.active:true;$('formError').textContent='';$('preset').value='';kindHelp();$('editor').showModal();$('source').focus()}
+$('add').onclick=()=>edit();$('cancel').onclick=()=>$('editor').close();
+$('form').onsubmit=e=>{e.preventDefault();const type=$('kind').value,url=validSource(type,$('source').value);if(!url){$('formError').textContent='Ingresá una URL HTTP/HTTPS válida'+(type==='youtube'?' o un ID de YouTube.':'.');return}if(type!=='youtube'&&/\.(m3u|pls)(\?|$)/i.test(url)){$('formError').textContent='Usá una URL de stream directo. Importá la lista con el botón Listas IPTV.';return}if(type==='radio'&&new URL(url).pathname==='/'&&!new URL(url).port){$('formError').textContent='Esta dirección parece una página de proveedor. Ingresá la URL completa del stream.';return}if(type==='web'&&new URL(url).origin===location.origin){$('formError').textContent='Usá una página externa, no el propio Mosaico.';return}if(videos.some(v=>v.id!==editing&&v.type===type&&v.url===url)){$('formError').textContent='Esta fuente ya está guardada.';return}
+ const v={...(editing?videos.find(x=>x.id===editing):{}),id:editing||'s_'+crypto.randomUUID().replaceAll('-',''),type,url,title:$('name').value.trim(),active:$('active').checked};if(editing){if(audioOwner===editing)silenceAll();videos[videos.findIndex(x=>x.id===editing)]=v}else videos.push(v);save();render();$('editor').close();if(v.type==='radio'&&v.active)selectAudio(v.id)};
+$('all').onclick=()=>{if(videos.length>30&&!confirm('¿Mostrar las '+videos.length+' fuentes? Esto puede consumir muchos recursos.'))return;let selected=false;videos.forEach(v=>{v.active=v.type!=='radio'||(!selected&&(selected=true))});save();render()};
+$('none').onclick=()=>{silenceAll();videos.forEach(v=>v.active=false);save();render()};
+setInterval(()=>{for(const [id,r] of players){if(!r.ready)continue;try{if(r.type==='youtube'){if(id!==audioOwner&&!r.player.isMuted())r.player.mute();const duration=r.player.getDuration();r.seek.disabled=!(duration>0);if(duration>0){r.seek.max=duration;if(document.activeElement!==r.seek)r.seek.value=r.player.getCurrentTime()}}else if(r.type==='video'){const duration=r.media.duration;r.seek.disabled=!Number.isFinite(duration);if(Number.isFinite(duration)){r.seek.max=duration;if(document.activeElement!==r.seek)r.seek.value=r.media.currentTime}}}catch{}}},500);
+window.addEventListener('pagehide',silenceAll);
+if(location.protocol==='file:')$('notice').textContent='Archivo local: YouTube y algunas páginas necesitan abrirse desde HTTPS o localhost. El catálogo se guarda por navegador y dirección.';
+render();
+
+</script>
+</body>
+</html>

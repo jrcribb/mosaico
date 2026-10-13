@@ -1,0 +1,14 @@
+const {chromium}=require('C:/Users/jl6248/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const {pathToFileURL}=require('url');const path=require('path');const assert=require('assert');
+(async()=>{const browser=await chromium.launch({channel:'msedge',headless:true});const page=await browser.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));await page.route('https://www.youtube.com/**',r=>r.abort());
+await page.addInitScript(()=>{localStorage.clear();window.calls=0;window.denyWake=false;Object.defineProperty(navigator,'wakeLock',{configurable:true,value:{request:async()=>{window.calls++;if(window.denyWake)throw Error('denied');const s=new EventTarget();s.released=false;s.release=async()=>{s.released=true;s.dispatchEvent(new Event('release'))};window.sentinel=s;return s}}})});
+await page.goto(pathToFileURL(path.resolve('mosaico-youtube.html')).href);
+await page.locator('#wake').click();assert.equal(await page.locator('#wake').getAttribute('aria-pressed'),'true');
+await page.evaluate(async()=>{await window.sentinel.release();Object.defineProperty(document,'visibilityState',{configurable:true,get:()=> 'visible'});document.dispatchEvent(new Event('visibilitychange'))});
+await page.waitForTimeout(50);assert.equal(await page.evaluate(()=>window.calls),2);assert.equal(await page.locator('#wake').getAttribute('aria-pressed'),'true');
+await page.locator('#wake').click();assert.equal(await page.locator('#wake').getAttribute('aria-pressed'),'false');
+await page.evaluate(()=>window.denyWake=true);await page.locator('#wake').click();assert.equal(await page.locator('#wake').getAttribute('aria-pressed'),'false');assert.match(await page.locator('#localToast').innerText(),/No se pudo/);
+await page.locator('#youtubeLogin').click();assert(await page.locator('#youtubeAccount').isVisible());assert.match(await page.locator('#officialLogin').getAttribute('href'),/^https:\/\/accounts.google.com\//);assert(await page.locator('#premiumVideo').isHidden());await page.locator('#closeAccount').click();
+await page.evaluate(()=>{videos=[{id:'dQw4w9WgXcQ',active:true,title:'Test'}]});await page.locator('#youtubeLogin').click();assert.match(await page.locator('#premiumVideo').getAttribute('href'),/watch\?v=dQw4w9WgXcQ/);await page.keyboard.press('Escape');
+await page.setViewportSize({width:390,height:844});assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth&&document.documentElement.scrollHeight<=innerHeight));
+assert.deepEqual(errors,[]);console.log('PASS: wake activation, release, reacquisition, refusal; YouTube dialog and links; mobile no overflow. Wake Lock simulated.');await browser.close()})().catch(e=>{console.error(e);process.exit(1)});
